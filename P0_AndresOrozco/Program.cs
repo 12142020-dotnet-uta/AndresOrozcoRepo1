@@ -6,6 +6,9 @@ namespace P0_AndresOrozco
     {
         static void Main(string[] args)
         {
+            User me = new User("Andres", "Orozco");
+            Console.WriteLine($"Created the user, {me.FName} {me.LName}");
+            /*
             while(true)
             {
                 //logging in
@@ -19,6 +22,7 @@ namespace P0_AndresOrozco
                 }
 
             }
+            */
             Console.WriteLine("Hello World!");
         }
     }
