@@ -6,7 +6,21 @@ namespace P0_AndresOrozco
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            //Console.WriteLine("Hello World!");
+            while (true)
+            {
+                //logging in and out portion
+                while (true)
+                {
+                    //choosing store from list of locations
+                    while (true)
+                    {
+                        //
+                    }
+
+                }
+
+            }
         }
     }
 }
