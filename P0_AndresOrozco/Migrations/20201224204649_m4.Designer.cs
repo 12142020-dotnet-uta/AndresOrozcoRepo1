@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using P0_AndresOrozco;
 
 namespace P0_AndresOrozco.Migrations
 {
     [DbContext(typeof(StoreAppDBContext))]
-    partial class StoreAppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20201224204649_m4")]
+    partial class m4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,22 +34,6 @@ namespace P0_AndresOrozco.Migrations
                     b.HasKey("UserName");
 
                     b.ToTable("customers");
-                });
-
-            modelBuilder.Entity("P0_AndresOrozco.Inventory", b =>
-                {
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("StoreId", "ProductId");
-
-                    b.ToTable("inventory");
                 });
 
             modelBuilder.Entity("P0_AndresOrozco.Product", b =>

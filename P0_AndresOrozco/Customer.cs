@@ -9,14 +9,14 @@ namespace P0_AndresOrozco
     {
 
         private string fName, lName, userName;
-        private Guid userId;
+        //private Guid customerId;
         //private Guid userId;// = Guid.Empty;
         public Customer(string fName, string lName, string userName)//, string userId)
         {
+            this.userName = userName;
             this.fName = fName;
             this.lName = lName;
-            this.userName = userName;
-            this.userId = Guid.NewGuid();//Parse(fName+lName);
+            //this.customerId = Guid.NewGuid();
         }
 
         //Properties Below
@@ -50,22 +50,21 @@ namespace P0_AndresOrozco
                 }
             }
         }
-        //[Key]
+        /*
+        [Key]
         public Guid CustomerId
         {
-            get { return this.userId; }
-            set
-            {
-                this.userId = Guid.NewGuid();
-            }
+            get { return this.customerId; }
+            //set { this.customerId = Guid.NewGuid();}
         }
+        */
+        
         [Key]
         public string UserName
         {
             get { return this.userName;}
             set
             {
-                //check if unique first
                 this.userName = value;
             }
         }
