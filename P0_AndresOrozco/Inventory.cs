@@ -6,14 +6,28 @@ namespace P0_AndresOrozco
 {
     public class Inventory
     {
+        private Guid inventoryId;
         private string productName;
         private int storeId, quantity;
 
-        public Inventory(int storeId, string productName, int quantity)
+        public Inventory(Guid inventoryId, int storeId, string productName, int quantity)
         {
+            this.inventoryId = inventoryId;
             this.storeId = storeId;
             this.productName = productName;
             this.quantity = quantity;
+        }
+
+        public Guid InventoryId
+        {
+            get
+            {
+                return this.inventoryId;
+            }
+            set
+            {
+                this.inventoryId = value;
+            }
         }
         
         public int StoreId

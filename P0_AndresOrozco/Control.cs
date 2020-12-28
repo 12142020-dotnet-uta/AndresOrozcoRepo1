@@ -51,20 +51,21 @@ namespace P0_AndresOrozco
         }
         public int ChooseStore()
         {
-            Console.WriteLine("Please choose which location you would like to shop at below!");
-            Console.WriteLine("\t 1. Hollywood, CA \n\t 2. Berkeley, CA \n\t 3. San Francisco, CA");
+            Console.WriteLine("Please choose which location you would like to shop at below! (or press 4. To log out)");
+            Console.WriteLine("\t 1. Hollywood, CA \n\t 2. Berkeley, CA \n\t 3. San Francisco, CA\n\t 4. Log out");
             string store = Console.ReadLine();
             if (store == "1" || store == "2" || store == "3")
             {
-                int storeId = Int32.Parse(store);
-                Console.WriteLine(store);
-                return 1;
+                return Int32.Parse(store);
+            }
+            else if (store == "4")
+            {
+                return 0;
             }
             else
             {
                 return -1;
             }
-            //return -1;
         }
     }
 }

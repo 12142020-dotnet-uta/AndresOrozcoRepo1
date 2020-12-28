@@ -24,12 +24,14 @@ namespace P0_AndresOrozco.Migrations
                 name: "inventory",
                 columns: table => new
                 {
+                    InventoryId = table.Column<Guid>(nullable: false),
                     StoreId = table.Column<int>(nullable: false),
                     ProductName = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_inventory", x => x.InventoryId);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,6 +60,20 @@ namespace P0_AndresOrozco.Migrations
                 {
                     table.PrimaryKey("PK_products", x => x.ProductName);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "stores",
+                columns: table => new
+                {
+                    StoreId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StoreName = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_stores", x => x.StoreId);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -73,6 +89,9 @@ namespace P0_AndresOrozco.Migrations
 
             migrationBuilder.DropTable(
                 name: "products");
+
+            migrationBuilder.DropTable(
+                name: "stores");
         }
     }
 }

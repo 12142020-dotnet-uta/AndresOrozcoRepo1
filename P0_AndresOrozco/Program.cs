@@ -25,15 +25,16 @@ namespace P0_AndresOrozco
                     while(true)
                     {
                         int status = c.ChooseStore();
-                        if (status == -1) break;
+                        if (status == -1 || status == 0) break;
                         else
                         {
                             storeContext.ShowInventory(status);
-                            //store = status; //store the storeID locally for now
+                            //Inventory i = storeContext.ShowInventory(status);
+                            //Console.WriteLine(i);
+                            store = status; //store the storeID locally for now
                         }
                     }
-                    break;
-
+                    //break; //will take out
                 }
             }
         }

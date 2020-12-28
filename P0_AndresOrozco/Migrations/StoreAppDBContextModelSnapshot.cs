@@ -37,6 +37,10 @@ namespace P0_AndresOrozco.Migrations
 
             modelBuilder.Entity("P0_AndresOrozco.Inventory", b =>
                 {
+                    b.Property<Guid>("InventoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,6 +49,8 @@ namespace P0_AndresOrozco.Migrations
 
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
+
+                    b.HasKey("InventoryId");
 
                     b.ToTable("inventory");
                 });
@@ -82,6 +88,24 @@ namespace P0_AndresOrozco.Migrations
                     b.HasKey("ProductName");
 
                     b.ToTable("products");
+                });
+
+            modelBuilder.Entity("P0_AndresOrozco.Store", b =>
+                {
+                    b.Property<int>("StoreId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StoreName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StoreId");
+
+                    b.ToTable("stores");
                 });
 #pragma warning restore 612, 618
         }
