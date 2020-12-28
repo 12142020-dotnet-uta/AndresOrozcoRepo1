@@ -9,16 +9,12 @@ namespace P0_AndresOrozco
     {
 
         private string fName, lName, userName;
-        //private Guid customerId;
-        //private Guid userId;// = Guid.Empty;
         public Customer(string fName, string lName, string userName)//, string userId)
         {
             this.userName = userName;
             this.fName = fName;
             this.lName = lName;
-            //this.customerId = Guid.NewGuid();
         }
-
         //Properties Below
         public string FName
         {
@@ -50,19 +46,13 @@ namespace P0_AndresOrozco
                 }
             }
         }
-        /*
-        [Key]
-        public Guid CustomerId
-        {
-            get { return this.customerId; }
-            //set { this.customerId = Guid.NewGuid();}
-        }
-        */
-        
         [Key]
         public string UserName
         {
-            get { return this.userName;}
+            get
+            {
+                return this.userName;
+            }
             set
             {
                 this.userName = value;

@@ -4,10 +4,10 @@ namespace P0_AndresOrozco
 {
     class Program
     {
-        static StoreAppRepositoryLayer gameContext = new StoreAppRepositoryLayer();
+        static StoreAppRepositoryLayer storeContext = new StoreAppRepositoryLayer();
+        public static int store;
         public static void Main(string[] args)
         {
-
             Control c = new Control();
             //Validation validate = new Validation();
 
@@ -25,9 +25,11 @@ namespace P0_AndresOrozco
                     while(true)
                     {
                         int status = c.ChooseStore();
-                        if (status == -1)
+                        if (status == -1) break;
+                        else
                         {
-                            break;
+                            storeContext.ShowInventory(status);
+                            //store = status; //store the storeID locally for now
                         }
                     }
                     break;

@@ -1,30 +1,33 @@
-
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace P0_AndresOrozco
 {
     public class Product
     {
-        public Product(int productId, string productName, double productPrice, string productDescription)
+        public Product(string productName, double productPrice, string productDescription)
         {
-            this.productId = productId;
+            //this.productId = productId;
             this.productName = productName;
             this.productPrice = productPrice;
             this.productDescription = productDescription;
         }
 
-        private int productId;
+        //private Guid productId;
         private string productName;
         private double productPrice;
         private string productDescription;
 
+        /*
         [Key]
-        public int ProductId
+        public Guid ProductId
         {
             get { return this.productId; }
             set { this.productId = value; }
         }
+        */
 
+        [Key]
         public string ProductName
         {
             get {return this.productName;}
@@ -36,7 +39,6 @@ namespace P0_AndresOrozco
             get { return this.productPrice;}
             set { this.productPrice = value;}
         } 
-
         public string ProductDescription
         {
             get { return this.productDescription;}

@@ -8,16 +8,13 @@ namespace P0_AndresOrozco
     public class StoreAppRepositoryLayer
     {
         public Customer u1 = new Customer("null", "null", "null");
+        public Inventory i1 = new Inventory(-1, "null", -1);
         static StoreAppDBContext db = new StoreAppDBContext();
         //DbSet<Customer> users = StoreAppDBContext.users;
         DbSet<Customer> customers = db.customers;
         DbSet<Product> products = db.products;
         DbSet<Inventory> inventory = db.inventory;
-        /*
-        Product p1 = new Product(1,"TVU", 10.99 ,"beset band evar");
-        db.Add(p1);
-        db.SaveChanges();
-        */
+        DbSet<OrderHistory> orderHistory = db.orderHistory;
         //DbSet<GuidToUserName> guidMapping = db.guids;
         public int LogIn(string userName)
         {
@@ -65,6 +62,13 @@ namespace P0_AndresOrozco
                               //ask for a new one
                 }
             }
+        }
+
+        public void ShowInventory(int storeId)
+        {
+            Console.WriteLine(storeId.GetType());
+            i1 = inventory.Where(x => x.StoreId == storeId).FirstOrDefault();
+            Console.WriteLine(i1);
         }
     }
 }

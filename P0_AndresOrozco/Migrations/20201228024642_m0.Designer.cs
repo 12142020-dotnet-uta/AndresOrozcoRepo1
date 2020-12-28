@@ -10,8 +10,8 @@ using P0_AndresOrozco;
 namespace P0_AndresOrozco.Migrations
 {
     [DbContext(typeof(StoreAppDBContext))]
-    [Migration("20201224204448_m3")]
-    partial class m3
+    [Migration("20201228024642_m0")]
+    partial class m0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,37 +37,51 @@ namespace P0_AndresOrozco.Migrations
                     b.ToTable("customers");
                 });
 
-            modelBuilder.Entity("P0_AndresOrozco.GuidToUserName", b =>
+            modelBuilder.Entity("P0_AndresOrozco.Inventory", b =>
                 {
-                    b.Property<Guid>("CustomerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("UserName")
+                    b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CustomerId");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
-                    b.ToTable("guids");
+                    b.Property<int>("StoreId")
+                        .HasColumnType("int");
+
+                    b.ToTable("inventory");
+                });
+
+            modelBuilder.Entity("P0_AndresOrozco.OrderHistory", b =>
+                {
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("StoreId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long>("Timestamp")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("UserName");
+
+                    b.ToTable("orderHistory");
                 });
 
             modelBuilder.Entity("P0_AndresOrozco.Product", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductDescription")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ProductPrice")
                         .HasColumnType("float");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("ProductName");
 
                     b.ToTable("products");
                 });

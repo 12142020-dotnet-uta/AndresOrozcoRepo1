@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -5,32 +6,31 @@ namespace P0_AndresOrozco
 {
     public class Inventory
     {
-        public Inventory(int storeId, int productId, int quantity)
+        private string productName;
+        private int storeId, quantity;
+
+        public Inventory(int storeId, string productName, int quantity)
         {
             this.storeId = storeId;
-            this.productId = productId;
+            this.productName = productName;
             this.quantity = quantity;
         }
-        private int storeId, productId, quantity;
-
-        //[Key]
+        
         public int StoreId
         {
             get { return this.storeId;}
             set { this.storeId = value;}
         }
         //[Key]
-        public int ProductId
+        public string ProductName
         {
-            get { return this.productId;}
-            set { this.productId = value;}
-
+            get { return this.productName;}
+            set { this.productName = value;}
         }
         public int Quantity
         {
             get { return this.quantity; }
             set { this.quantity = value; }
         }
-        
     }
 }
