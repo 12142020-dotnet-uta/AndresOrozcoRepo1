@@ -6,63 +6,56 @@ namespace P0_AndresOrozco
 {
     public class OrderHistory
     {
-        private string userName;
-        private Guid storeId;
-        private long timestamp;
-        private Guid productId;
-        public OrderHistory(string userName, Guid storeId, long timestamp, Guid productId)
+        private Guid orderId;
+        private int storeId; //will group by this when looking at history
+        private string userName, productName;
+        private double productPrice, totalOrder;
+        private DateTime timestamp;
+        public OrderHistory(Guid orderId, int storeId, string userName, string productName, double productPrice, double totalOrder, DateTime timestamp)
         {
-            this.userName = userName;
+            this.orderId = orderId;
             this.storeId = storeId;
+            this.userName = userName;
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.totalOrder = totalOrder;
             this.timestamp = timestamp;
-            this.productId = productId;
         }
-
         [Key]
+        public Guid OrderId
+        {
+            get { return this.orderId;}
+            set { this.orderId = value;}
+        }
+        public int StoreId
+        {
+            get { return this.storeId;}
+            set { this.storeId = value;}
+        }
         public string UserName
         {
-            get
-            {
-                return this.userName;
-            }
-            set
-            {
-                this.userName = value;
-            }
+            get { return this.userName;}
+            set { this.userName = value;}
         }
-        public Guid StoreId
+        public string ProductName
         {
-            get
-            {
-                return this.storeId;
-            }
-            set
-            {
-                this.storeId = value;
-            }
+            get { return this.productName;}
+            set { this.productName = value;}
         }
-
-        public long Timestamp
+        public double ProductPrice
         {
-            get
-            {
-                return this.timestamp;
-            }
-            set
-            {
-                this.timestamp = value;
-            }
+            get { return this.productPrice;}
+            set { this.productPrice = value;}
         }
-        public Guid ProductId
+        public double TotalOrder
         {
-            get
-            {
-                return this.productId;
-            }
-            set
-            {
-                this.productId = value;
-            }
+            get {return this.totalOrder;}
+            set { this.totalOrder = value;}
+        }
+        public DateTime Timestamp
+        {
+            get {return this.timestamp;}
+            set { this.timestamp = value;}
         }
     }
 }

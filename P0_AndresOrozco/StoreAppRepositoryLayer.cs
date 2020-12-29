@@ -7,8 +7,25 @@ namespace P0_AndresOrozco
 {
     public class StoreAppRepositoryLayer
     {
-        public Customer u1 = new Customer("null", "null", "null");
-        public Inventory i1 = new Inventory(Guid.NewGuid(),-1, "null", -1);
+        public Customer c1 = new Customer("null", "null", "null");
+        public Inventory i1 = new Inventory(Guid.NewGuid(), -1, "null", -1);
+        StoreAppDBContext db;
+        DbSet<Customer> customers;
+        DbSet<Product> products;
+        DbSet<Store> stores;
+        DbSet<Inventory> inventory;
+        DbSet<OrderHistory> orderHistory;
+
+        public StoreAppRepositoryLayer(StoreAppDBContext context)
+        {
+            this.db = context;
+            this.customers = db.customers;
+            this.products = db.products;
+            this.stores = db.stores;
+            this.inventory = db.inventory;
+            this.orderHistory = db.orderHistory;
+        }
+        /*
         static StoreAppDBContext db = new StoreAppDBContext();
         //DbSet<Customer> users = StoreAppDBContext.users;
         DbSet<Customer> customers = db.customers;
@@ -17,12 +34,13 @@ namespace P0_AndresOrozco
         DbSet<Inventory> inventory = db.inventory;
         DbSet<OrderHistory> orderHistory = db.orderHistory;
         //DbSet<GuidToUserName> guidMapping = db.guids;
+        */
         public int LogIn(string userName)
         {
             while (true)
             {
-                u1 = customers.Where(x => x.UserName == userName).FirstOrDefault();
-                if (u1 == null) //it doesnt exist
+                c1 = customers.Where(x => x.UserName == userName).FirstOrDefault();
+                if (c1 == null) //it doesnt exist
                 {
                     Console.WriteLine("The username you inputed either doesn't exist or is mispelled. Redirecting you back to main menu.");
                     return -1;
@@ -30,7 +48,7 @@ namespace P0_AndresOrozco
                 else
                 {
                     //Console.WriteLine("Thanks for logging in!");
-                    Console.WriteLine($"Welcome {u1.FName} {u1.LName} ({u1.UserName})!");
+                    Console.WriteLine($"Welcome {c1.FName} {c1.LName} ({c1.UserName})!");
 
                     return 0;
                 }
@@ -38,32 +56,31 @@ namespace P0_AndresOrozco
         }
         public int CreateCustomer(string fName, string lName, string userName)
         {
-            //Customer u1 = new Customer("null", "null", "null");
+            //Customer c1 = new Customer("null", "null", "null");
             while (true)
             {
-                u1 = customers.Where(x => x.UserName == userName).FirstOrDefault();//x => x.FName == fName && x.LName == lName).FirstOrDefault();
-                //Console.WriteLine($"{u1}");
-                if (u1 == null)
+                c1 = customers.Where(x => x.UserName == userName).FirstOrDefault();//x => x.FName == fName && x.LName == lName).FirstOrDefault();
+                //Console.WriteLine($"{c1}");
+                if (c1 == null)
                 {
-                    u1 = new Customer(fName, lName, userName);//, Guid.Parse(userId).ToString());
-                    customers.Add(u1);
+                    c1 = new Customer(fName, lName, userName);//, Guid.Parse(userId).ToString());
+                    customers.Add(c1);
                     db.SaveChanges();
                     Console.WriteLine("WROTE TO SERVER\n");
-                    Console.WriteLine($"Welcome {u1.FName} {u1.LName} ({u1.UserName})!");
-                    return 0; //all set
+                    Console.WriteLine($"Welcome {c1.FName} {c1.LName} ({c1.UserName})!");
+                    return 0;
                 }
                 else
                 {
                     Console.WriteLine("Username is taken! Please try again.");
-                    return -1;
+                    return -1;//(-1, c1.UserName);
                               //username is taken.
                               //ask for a new one
                 }
             }
         }
-        public void ShowInventory(int storeId)
+        public void ShowInventory(int storeId, Dictionary<string,int> currentOrder)
         {
-            Console.WriteLine("HERE");
             foreach(Inventory i in inventory)
             {
                 if (i.StoreId == storeId)
@@ -72,11 +89,93 @@ namespace P0_AndresOrozco
                     {
                         if (p.ProductName == i.ProductName)
                         {
-                            Console.WriteLine($"{i.ProductName} ({i.Quantity} in stock)\n\t{p.ProductDescription}\n");
+                            if (currentOrder.Count != 0)
+                            {
+                                foreach (var item in currentOrder)
+                                {
+                                    if (item.Key == i.ProductName)
+                                    {
+                                        if (i.Quantity > 0) Console.WriteLine($"{i.ProductName} ${p.ProductPrice} ({i.Quantity - item.Value} in stock)\n\t{p.ProductDescription}\n");
+                                        else Console.WriteLine($"{i.ProductName} ${p.ProductPrice} (OUT OF STOCK!)\n\t{p.ProductDescription}\n");
+                                    }
+                                    else
+                                    {
+                                        if (i.Quantity > 0) Console.WriteLine($"{i.ProductName} ${p.ProductPrice} ({i.Quantity} in stock)\n\t{p.ProductDescription}\n");
+                                        else Console.WriteLine($"{i.ProductName} ${p.ProductPrice} (OUT OF STOCK!)\n\t{p.ProductDescription}\n");
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (i.Quantity > 0) Console.WriteLine($"{i.ProductName} ${p.ProductPrice} ({i.Quantity} in stock)\n\t{p.ProductDescription}\n");
+                                else Console.WriteLine($"{i.ProductName} ${p.ProductPrice} (OUT OF STOCK!)\n\t{p.ProductDescription}\n");
+                            }
                         }
                     }
                 }
             }
+        }
+        public int CheckProduct(string productName)
+        {
+            while (true)
+            {
+                i1 = inventory.Where(x=>x.ProductName == productName).FirstOrDefault();
+                if (i1 == null) //doesn't exist
+                {
+                    return -1;
+                }
+                else //exists
+                {
+                    return 0;
+                    //i1.Quantity--; //decrement
+                }
+            }
+        }
+        
+
+        public List<OrderHistory> AddToCart(string userName, int storeId, Dictionary<string,int> currentOrder)
+        {
+            double productTotal = 0.0;
+            double total = 0;
+            List<OrderHistory> oh = new List<OrderHistory>();
+            foreach(var item in currentOrder) //item is (key: productName, value: quantity)
+            {
+                string productName = item.Key;
+                int quantity = item.Value;
+                i1 = inventory.Where(x => x.ProductName == productName).FirstOrDefault();
+                foreach(Inventory i in inventory)
+                {
+                    if (i.ProductName == productName)
+                    {
+                        foreach (Product p in products)
+                        {
+                            if (p.ProductName == i.ProductName)
+                            {
+                                productTotal = (p.ProductPrice * quantity);
+                                //can print out cart
+                                Console.WriteLine($"{productName} x {quantity} = {productTotal}");
+                                //it has been found, we decrement quantity and return total price
+                                i1.Quantity -= quantity;
+                                total += productTotal;
+                            }
+                        }
+                        oh.Add(new OrderHistory( Guid.NewGuid(),storeId, userName, productName, productTotal, total, DateTime.UtcNow));
+                        //this.AddToOrderHistory(Guid.NewGuid(),storeId, userName, productName, productTotal, total, DateTime.UtcNow);
+                    }
+                }
+            }
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine($"TOTAL: {Math.Round(total,2)}");
+            db.SaveChanges();//UNCOMMENT ON PRODUCTION
+            return oh;
+        }
+
+        public void AddToOrderHistory(Guid orderId, int storeId, string userName, string productName, double productTotal, double total, DateTime timestamp)//Dictionary<string,int> orderHistory)
+        {
+            OrderHistory oh = new OrderHistory(orderId, storeId, userName,  productName,  productTotal, total, timestamp);
+            orderHistory.Add(oh);
+            db.SaveChanges();
+            Console.WriteLine($"{orderId.ToString()} | {storeId} | {userName} | {productName} | {productTotal} | {total} | {timestamp}");
         }
     }
 }
