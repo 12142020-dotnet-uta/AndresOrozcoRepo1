@@ -136,12 +136,16 @@ namespace P0_AndresOrozco
         public List<OrderHistory> AddToCart(string userName, int storeId, Dictionary<string,int> currentOrder)
         {
             double productTotal = 0.0;
-            double total = 0;
+            double totalOrder = 0;
             List<OrderHistory> oh = new List<OrderHistory>();
+            DateTime timestamp = DateTime.UtcNow;
+            Guid commonId = Guid.NewGuid();
+            //double productPrice;
+            OrderHistory order;
             foreach(var item in currentOrder) //item is (key: productName, value: quantity)
             {
                 string productName = item.Key;
-                int quantity = item.Value;
+                int productQuantity = item.Value;
                 i1 = inventory.Where(x => x.ProductName == productName).FirstOrDefault();
                 foreach(Inventory i in inventory)
                 {
@@ -151,31 +155,34 @@ namespace P0_AndresOrozco
                         {
                             if (p.ProductName == i.ProductName)
                             {
-                                productTotal = (p.ProductPrice * quantity);
+                                productTotal = (p.ProductPrice * productQuantity);
                                 //can print out cart
-                                Console.WriteLine($"{productName} x {quantity} = {productTotal}");
-                                //it has been found, we decrement quantity and return total price
-                                i1.Quantity -= quantity;
-                                total += productTotal;
+                                Console.WriteLine($"{productName} x {productQuantity} = {productTotal}");
+                                //it has been found, we decrement quantity and return totalOrder price
+                                i1.Quantity -= productQuantity;
+                                totalOrder += productTotal;
+                                order = new OrderHistory(Guid.NewGuid(), commonId, storeId, userName, productName, productQuantity, p.ProductPrice, timestamp);
+                                oh.Add(order);
                             }
                         }
-                        oh.Add(new OrderHistory( Guid.NewGuid(),storeId, userName, productName, productTotal, total, DateTime.UtcNow));
-                        //this.AddToOrderHistory(Guid.NewGuid(),storeId, userName, productName, productTotal, total, DateTime.UtcNow);
+
+                        //OrderHistory order = new OrderHistory(Guid.NewGuid(), commonId, storeId, userName, productName, productQuantity, p.ProductPrice, timestamp);
                     }
                 }
             }
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine($"TOTAL: {Math.Round(total,2)}");
+            Console.WriteLine($"TOTAL: {Math.Round(totalOrder,2)}");
             db.SaveChanges();//UNCOMMENT ON PRODUCTION
             return oh;
         }
-
-        public void AddToOrderHistory(Guid orderId, int storeId, string userName, string productName, double productTotal, double total, DateTime timestamp)//Dictionary<string,int> orderHistory)
+        public void AddToOrderHistory(List<OrderHistory> oh)
         {
-            OrderHistory oh = new OrderHistory(orderId, storeId, userName,  productName,  productTotal, total, timestamp);
-            orderHistory.Add(oh);
+            foreach(OrderHistory o in oh)
+            {
+                Console.WriteLine(o);
+                orderHistory.Add(o);
+            }
             db.SaveChanges();
-            Console.WriteLine($"{orderId.ToString()} | {storeId} | {userName} | {productName} | {productTotal} | {total} | {timestamp}");
         }
     }
 }

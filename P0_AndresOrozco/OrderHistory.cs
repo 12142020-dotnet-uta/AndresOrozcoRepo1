@@ -6,19 +6,28 @@ namespace P0_AndresOrozco
 {
     public class OrderHistory
     {
-        private Guid orderId;
+
+        private Guid orderId, commonId;
         private int storeId; //will group by this when looking at history
         private string userName, productName;
-        private double productPrice, totalOrder;
+        private double productPrice;//,totalOrder;
         private DateTime timestamp;
-        public OrderHistory(Guid orderId, int storeId, string userName, string productName, double productPrice, double totalOrder, DateTime timestamp)
+        private int productQuantity;
+
+        public override string ToString()
+        {
+            return $"{orderId} | {commonId} | {storeId} | {userName} | {productName} | {productQuantity} | {timestamp}";
+        }
+        public OrderHistory(Guid orderId, Guid commonId, int storeId, string userName, string productName, int productQuantity, double productPrice, DateTime timestamp)
         {
             this.orderId = orderId;
+            this.commonId = commonId;
             this.storeId = storeId;
             this.userName = userName;
             this.productName = productName;
+            this.productQuantity = productQuantity;
             this.productPrice = productPrice;
-            this.totalOrder = totalOrder;
+            //this.totalOrder = totalOrder;
             this.timestamp = timestamp;
         }
         [Key]
@@ -26,6 +35,11 @@ namespace P0_AndresOrozco
         {
             get { return this.orderId;}
             set { this.orderId = value;}
+        }
+        public Guid CommonId
+        {
+            get { return this.commonId;}
+            set { this.commonId = value;}
         }
         public int StoreId
         {
@@ -42,16 +56,24 @@ namespace P0_AndresOrozco
             get { return this.productName;}
             set { this.productName = value;}
         }
-        public double ProductPrice
+
+        public int ProductQuantity
+        {
+            get { return this.productQuantity;}
+            set { this.productQuantity = value;}
+        }
+        public double ProductPrice //price of ONE SINGLE PRODUCT
         {
             get { return this.productPrice;}
             set { this.productPrice = value;}
         }
+        /*
         public double TotalOrder
         {
             get {return this.totalOrder;}
             set { this.totalOrder = value;}
         }
+        */
         public DateTime Timestamp
         {
             get {return this.timestamp;}

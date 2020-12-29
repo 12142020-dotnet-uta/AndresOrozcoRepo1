@@ -10,7 +10,7 @@ using P0_AndresOrozco;
 namespace P0_AndresOrozco.Migrations
 {
     [DbContext(typeof(StoreAppDBContext))]
-    [Migration("20201229054414_m0")]
+    [Migration("20201229212113_m0")]
     partial class m0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,20 +63,23 @@ namespace P0_AndresOrozco.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("CommonId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ProductPrice")
                         .HasColumnType("float");
 
+                    b.Property<int>("ProductQuantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("StoreId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
-
-                    b.Property<double>("TotalOrder")
-                        .HasColumnType("float");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");

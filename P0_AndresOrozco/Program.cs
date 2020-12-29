@@ -48,8 +48,8 @@ namespace P0_AndresOrozco
                                 if (productName == "quit") break; //change of store, drop everthing
                                 else if (productName == "checkout")
                                 {
-                                    storeContext.AddToCart(userName, store,currentOrder);
-                                    //storeContext.AddToOrderHistory();
+                                    List<OrderHistory> oh = storeContext.AddToCart(userName, store,currentOrder);
+                                    storeContext.AddToOrderHistory(oh);
                                     currentOrder.Clear(); //we dont need this anymore!
                                     break;
                                 }

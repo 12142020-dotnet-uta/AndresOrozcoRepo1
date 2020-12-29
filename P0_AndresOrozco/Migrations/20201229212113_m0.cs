@@ -39,11 +39,12 @@ namespace P0_AndresOrozco.Migrations
                 columns: table => new
                 {
                     OrderId = table.Column<Guid>(nullable: false),
+                    CommonId = table.Column<Guid>(nullable: false),
                     StoreId = table.Column<int>(nullable: false),
                     UserName = table.Column<string>(nullable: true),
                     ProductName = table.Column<string>(nullable: true),
+                    ProductQuantity = table.Column<int>(nullable: false),
                     ProductPrice = table.Column<double>(nullable: false),
-                    TotalOrder = table.Column<double>(nullable: false),
                     Timestamp = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
