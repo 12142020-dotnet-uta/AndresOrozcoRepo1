@@ -1,4 +1,6 @@
 using System;
+using System.Text.RegularExpressions;
+
 namespace P0_AndresOrozco
 {
     public class Control
@@ -37,8 +39,14 @@ namespace P0_AndresOrozco
                 fName = Console.ReadLine();
                 Console.Write("Last Name: ");
                 lName = Console.ReadLine();
-                Console.Write("Username: ");
+                do
+                {
+                Console.Write("Username (letters only): ");
                 userName = Console.ReadLine();
+                Console.WriteLine("ONLY USE LETTERS");
+                }
+                while(!Regex.IsMatch(userName, @"^[a-zA-Z]+$"));
+
                 int statusCode = storeContext.CreateCustomer(fName, lName, userName);//,userId);
                 return (statusCode,userName);
 
@@ -74,7 +82,7 @@ namespace P0_AndresOrozco
             //StoreAppRepositoryLayer storeContext = new StoreAppRepositoryLayer(dbContext);
 
             Console.WriteLine("Please choose which location you would like to shop at below!");
-            Console.WriteLine("\t 1. Hollywood, CA \n\t 2. Berkeley, CA \n\t 3. San Francisco, CA\n\tor\n\t4. Log out");
+            Console.WriteLine("\t 1. Hollywood, CA \n\t 2. Berkeley, CA \n\t 3. San Francisco, CA\n\t or\n\t 4. Log out");
             string store = Console.ReadLine();
             if (store == "1" || store == "2" || store == "3")
             {

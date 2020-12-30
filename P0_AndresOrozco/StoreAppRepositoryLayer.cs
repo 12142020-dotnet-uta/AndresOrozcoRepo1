@@ -128,7 +128,6 @@ namespace P0_AndresOrozco
                 else //exists
                 {
                     return 0;
-                    //i1.Quantity--; //decrement
                 }
             }
         }

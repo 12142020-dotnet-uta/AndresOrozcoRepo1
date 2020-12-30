@@ -58,5 +58,10 @@ namespace P0_AndresOrozco
                 this.userName = value;
             }
         }
+
+        public static explicit operator bool(Customer v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
