@@ -5,15 +5,12 @@ namespace P0_AndresOrozco
 {
     class Program
     {
-        //static StoreAppRepositoryLayer storeContext = new StoreAppRepositoryLayer();
-        //public StoreAppRepositoryLayer storeContext = new StoreAppRepositoryLayer();
-        public static int store;
         public static void Main(string[] args)
         {
             Control c = new Control();
             StoreAppDBContext dbContext = new StoreAppDBContext();
             StoreAppRepositoryLayer storeContext = new StoreAppRepositoryLayer(dbContext);
-            //Validation validate = new Validation();
+            int storeId;
 
             while(true)
             {
@@ -24,11 +21,17 @@ namespace P0_AndresOrozco
                 {
                     continue;
                 }
-                if (option == 3) break;
+                else if (option == 3) //getting order history
+                {
+                    string[] response = userName.Split('_');
+                    userName = response[0];
+                    storeId = Int32.Parse(response[1]);
+                    storeContext.GetOrderHistory(userName,storeId);
+                }
+                else if (option == 4) break; //quitting
                 if (option == 0) //good
                 {
                     //SAVE LOCAL LIST HERE OF ALL ORDERED PRODUCTS
-                    //int status = c.ChooseStore();
                     while(true)
                     {
                         //originally here
@@ -41,15 +44,14 @@ namespace P0_AndresOrozco
                             while (true)
                             {
                                 storeContext.ShowInventory(status, currentOrder);
-                                store = status; //store the storeID locally for now
+                                storeId = status; //store the storeID locally for now
 
                                 (string productName, int quantity) = c.ChooseProduct();
 
                                 if (productName == "quit") break; //change of store, drop everthing
                                 else if (productName == "checkout")
                                 {
-                                    List<OrderHistory> oh = storeContext.AddToCart(userName, store,currentOrder);
-                                    storeContext.AddToOrderHistory(oh);
+                                    storeContext.CheckoutCart(userName,storeId,currentOrder);
                                     currentOrder.Clear(); //we dont need this anymore!
                                     break;
                                 }
@@ -68,7 +70,6 @@ namespace P0_AndresOrozco
                             }
                         }
                     }
-                    //break; //will take out
                 }
             }
         }

@@ -66,9 +66,8 @@ namespace P0_AndresOrozco
                     c1 = new Customer(fName, lName, userName);//, Guid.Parse(userId).ToString());
                     customers.Add(c1);
                     db.SaveChanges();
-                    Console.WriteLine("WROTE TO SERVER\n");
                     Console.WriteLine($"Welcome {c1.FName} {c1.LName} ({c1.UserName})!");
-                    return 0;
+                    return 0; //all good
                 }
                 else
                 {
@@ -133,7 +132,7 @@ namespace P0_AndresOrozco
         }
         
 
-        public List<OrderHistory> AddToCart(string userName, int storeId, Dictionary<string,int> currentOrder)
+        public void CheckoutCart(string userName, int storeId, Dictionary<string,int> currentOrder)
         {
             double productTotal = 0.0;
             double totalOrder = 0;
@@ -162,27 +161,81 @@ namespace P0_AndresOrozco
                                 i1.Quantity -= productQuantity;
                                 totalOrder += productTotal;
                                 order = new OrderHistory(Guid.NewGuid(), commonId, storeId, userName, productName, productQuantity, p.ProductPrice, timestamp);
-                                oh.Add(order);
+                                orderHistory.Add(order);
                             }
                         }
-
-                        //OrderHistory order = new OrderHistory(Guid.NewGuid(), commonId, storeId, userName, productName, productQuantity, p.ProductPrice, timestamp);
                     }
                 }
             }
             Console.WriteLine("-------------------------------------");
             Console.WriteLine($"TOTAL: {Math.Round(totalOrder,2)}");
             db.SaveChanges();//UNCOMMENT ON PRODUCTION
-            return oh;
         }
-        public void AddToOrderHistory(List<OrderHistory> oh)
+        public void GetOrderHistory(string userName, int storeId)
         {
-            foreach(OrderHistory o in oh)
+
+            int inside = 0;
+            double total = 0;
+            string storeName = "null";
+            if (storeId > 0 && storeId < 4)
             {
-                Console.WriteLine(o);
-                orderHistory.Add(o);
+                foreach (Store s in stores)
+                {
+                    if (s.StoreId == storeId)
+                    {
+                        storeName = s.StoreName;
+                    }
+                }
+                Console.WriteLine($"Order History For: {userName} at {storeName}");
+                foreach (OrderHistory o in orderHistory)
+                {
+                    if (o.UserName == userName && o.StoreId == storeId)
+                    {
+                        total += (o.ProductPrice * o.ProductQuantity);
+                        Console.WriteLine($"{o.ProductName} ({o.ProductPrice}) x {o.ProductQuantity}--------{o.ProductPrice * o.ProductQuantity}");
+                        inside++;
+                    }
+                }
+                if (inside == 0)
+                {
+                    Console.WriteLine("Found no order history!");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("------------------------");
+                    Console.WriteLine($"Total was = ${Math.Round(total,2)}");
+                }
             }
-            db.SaveChanges();
+            else if (storeId == 4)
+            {
+
+                foreach (Store s in stores)
+                {
+                    storeName = s.StoreName;
+                    Console.WriteLine($"Order History For: {userName} at {storeName}");
+                    foreach (OrderHistory o in orderHistory)
+                    {
+                        if (o.UserName == userName && o.StoreId == s.StoreId)
+                        {
+                            total += (o.ProductPrice * o.ProductQuantity);
+                            Console.WriteLine($"{o.ProductName} ({o.ProductPrice}) x {o.ProductQuantity}--------{o.ProductPrice * o.ProductQuantity}");
+                            inside++;
+                        }
+                    }
+                    if (inside == 0) //no order history
+                    {
+                        Console.WriteLine("Found no order history!");
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("------------------------");
+                        Console.WriteLine($"Total was = ${Math.Round(total,2)}");
+                        total = 0;
+                    }
+                }
+            }
         }
     }
 }
