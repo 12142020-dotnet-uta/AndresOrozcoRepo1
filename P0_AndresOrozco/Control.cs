@@ -99,10 +99,10 @@ namespace P0_AndresOrozco
         }
 
         /// <summary>
-        /// 
+        /// Will add to respective store given storeId and user
         /// </summary>
         /// <param name="ChooseProduct("></param>
-        /// <returns></returns>
+        /// <returns> string PossiblyFoundProduct, int statusCode </returns>
         public (string,int) ChooseProduct()
         {
             StoreAppDBContext dbContext = new StoreAppDBContext();

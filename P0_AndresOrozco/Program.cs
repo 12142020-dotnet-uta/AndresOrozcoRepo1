@@ -52,7 +52,7 @@ namespace P0_AndresOrozco
                                 else if (productName == "checkout")
                                 {
                                     storeContext.CheckoutCart(userName,storeId,currentOrder);
-                                    currentOrder.Clear(); //we dont need this anymore!
+                                    currentOrder.Clear(); //clears current order when finished checking out
                                     break;
                                 }
                                 else //still deciding

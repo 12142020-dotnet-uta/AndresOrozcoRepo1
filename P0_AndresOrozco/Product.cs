@@ -18,15 +18,6 @@ namespace P0_AndresOrozco
         private double productPrice;
         private string productDescription;
 
-        /*
-        [Key]
-        public Guid ProductId
-        {
-            get { return this.productId; }
-            set { this.productId = value; }
-        }
-        */
-
         [Key]
         public string ProductName
         {
