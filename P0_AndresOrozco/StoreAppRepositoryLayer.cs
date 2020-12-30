@@ -16,6 +16,8 @@ namespace P0_AndresOrozco
         DbSet<Inventory> inventory;
         DbSet<OrderHistory> orderHistory;
 
+        public StoreAppRepositoryLayer() {}
+
         public StoreAppRepositoryLayer(StoreAppDBContext context)
         {
             this.db = context;

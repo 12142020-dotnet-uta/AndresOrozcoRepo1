@@ -11,17 +11,17 @@ namespace P0_AndresOrozco
         public DbSet<Inventory> inventory {get; set;}
         public DbSet<Store> stores {get; set;}
         public DbSet<OrderHistory> orderHistory {get; set;}
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+
+        public StoreAppDBContext() {}
+        public StoreAppDBContext(DbContextOptions options) : base(options){}
+
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=NotAmoebaProduction;Trusted_Connection=True;MultipleActiveResultSets=true;");
+            if (!options.IsConfigured)
+            {
+                options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=NotAmoebaProduction;Trusted_Connection=True;MultipleActiveResultSets=true;");
+            }
             //options.UseSqlServer(@"Server=localhost\\SQLEXPRESS02;Database=RpsGame12142020;Trusted_Connection=True;");
         }
-        /*
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //to create a composite key for Inventory
-            modelBuilder.Entity<Inventory>().HasNoKey();//.HasKey(c => new { c.StoreId, c.ProductId });
-        }
-        */
     }
 }
