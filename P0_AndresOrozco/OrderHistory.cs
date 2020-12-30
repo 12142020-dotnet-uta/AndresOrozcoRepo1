@@ -27,7 +27,6 @@ namespace P0_AndresOrozco
             this.productName = productName;
             this.productQuantity = productQuantity;
             this.productPrice = productPrice;
-            //this.totalOrder = totalOrder;
             this.timestamp = timestamp;
         }
         [Key]
@@ -67,13 +66,6 @@ namespace P0_AndresOrozco
             get { return this.productPrice;}
             set { this.productPrice = value;}
         }
-        /*
-        public double TotalOrder
-        {
-            get {return this.totalOrder;}
-            set { this.totalOrder = value;}
-        }
-        */
         public DateTime Timestamp
         {
             get {return this.timestamp;}

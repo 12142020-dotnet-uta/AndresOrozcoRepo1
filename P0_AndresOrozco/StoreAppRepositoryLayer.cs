@@ -17,7 +17,6 @@ namespace P0_AndresOrozco
         DbSet<OrderHistory> orderHistory;
 
         public StoreAppRepositoryLayer() {}
-
         public StoreAppRepositoryLayer(StoreAppDBContext context)
         {
             this.db = context;
@@ -27,16 +26,13 @@ namespace P0_AndresOrozco
             this.inventory = db.inventory;
             this.orderHistory = db.orderHistory;
         }
-        /*
-        static StoreAppDBContext db = new StoreAppDBContext();
-        //DbSet<Customer> users = StoreAppDBContext.users;
-        DbSet<Customer> customers = db.customers;
-        DbSet<Product> products = db.products;
-        DbSet<Store> stores = db.stores;
-        DbSet<Inventory> inventory = db.inventory;
-        DbSet<OrderHistory> orderHistory = db.orderHistory;
-        //DbSet<GuidToUserName> guidMapping = db.guids;
-        */
+
+
+        /// <summary>
+        /// Will look through customer DB to check if the given username exists.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns>0 if able to log in, -1 otherwise</returns>
         public int LogIn(string userName)
         {
             while (true)
@@ -56,6 +52,16 @@ namespace P0_AndresOrozco
                 }
             }
         }
+
+        
+        /// <summary>
+        /// Given a first, last, and username, if the username is unique, it will
+        /// create a new entry; else it will send you back to main menu after error message.
+        /// </summary>
+        /// <param name="fName"></param>
+        /// <param name="lName"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public int CreateCustomer(string fName, string lName, string userName)
         {
             //Customer c1 = new Customer("null", "null", "null");
@@ -80,6 +86,14 @@ namespace P0_AndresOrozco
                 }
             }
         }
+
+        /// <summary>
+        /// Given the storeId and the current Dictionary<productName,Quantity>
+        /// it will simulate quantity subtracting just in case 
+        /// user decides to leave abruptly.
+        /// </summary>
+        /// <param name="storeId"></param>
+        /// <param name="currentOrder"></param>
         public void ShowInventory(int storeId, Dictionary<string,int> currentOrder)
         {
             foreach(Inventory i in inventory)
@@ -116,6 +130,14 @@ namespace P0_AndresOrozco
                 }
             }
         }
+        
+
+        /// <summary>
+        /// WIll check if the inputted product exists in the DB.
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns>-1 if non existent, 0 otherwise</returns>
+
         public int CheckProduct(string productName)
         {
             while (true)
@@ -132,7 +154,13 @@ namespace P0_AndresOrozco
             }
         }
         
-
+        /// <summary>
+        /// Will finalize the current order by writing to DB. Will also calculate the product price times quantity and
+        /// will sum the total at the end.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="storeId"></param>
+        /// <param name="currentOrder"></param>
         public void CheckoutCart(string userName, int storeId, Dictionary<string,int> currentOrder)
         {
             double productTotal = 0.0;
@@ -172,6 +200,14 @@ namespace P0_AndresOrozco
             Console.WriteLine($"TOTAL: {Math.Round(totalOrder,2)}");
             db.SaveChanges();//UNCOMMENT ON PRODUCTION
         }
+        
+
+        /// <summary>
+        ///  Given the username and storeId, it will search through all of their
+        /// previous orders and print to the console. Can retreive orders from all stores, if needed.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="storeId"></param>         
         public void GetOrderHistory(string userName, int storeId)
         {
 
