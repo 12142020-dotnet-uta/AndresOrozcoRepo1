@@ -9,11 +9,16 @@ namespace ModelLayer.ViewModels
 {
     public class CustomerViewModel
     {
-        public CustomerViewModel(string fname, string lname, string username)
+        public CustomerViewModel()
+        {
+
+        }
+        public CustomerViewModel(string fname, string lname, string username, string store)
         {
             this.FName = fname;
             this.LName = lname;
             this.UserName = username;
+            this.Store = store;
         }
 
         [StringLength(10, ErrorMessage = "The last name must be from 3 to 10 characters.", MinimumLength = 3)]
@@ -34,7 +39,11 @@ namespace ModelLayer.ViewModels
         [Required]
         [Display(Name = "Username")]
         //[Key]
-        public string UserName { set; get; }
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Choose a default store location")] //they can change in EDIT login
+        public string Store { get; set; }
 
 
     }

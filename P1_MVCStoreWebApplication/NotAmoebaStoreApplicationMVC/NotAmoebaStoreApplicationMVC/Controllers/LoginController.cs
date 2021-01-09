@@ -41,6 +41,15 @@ namespace NotAmoebaStoreApplicationMVC.Controllers
 
             CustomerViewModel customerViewModel = _businessLogicClass.LoginCustomer(loginCustomerViewModel);
             return View("DisplayCustomerDetails", customerViewModel);
+            //if (customerViewModel != null)
+            //{
+            //    return View("DisplayCustomerDetails", customerViewModel);
+            //}
+            //else
+            //{
+            //    return View("Register");
+            //}
+
         }
         
     }

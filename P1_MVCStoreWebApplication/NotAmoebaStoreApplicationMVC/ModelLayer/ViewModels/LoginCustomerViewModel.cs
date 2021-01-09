@@ -9,12 +9,23 @@ namespace ModelLayer.ViewModels
 {
     public class LoginCustomerViewModel
     {
+        public LoginCustomerViewModel()
+        {
+
+        }
+        public LoginCustomerViewModel(string fname, string lname, string username, string store)
+        {
+            this.FName = fname;
+            this.LName = lname;
+            this.UserName = username;
+            this.Store = store;
+        }
 
         [StringLength(10, ErrorMessage = "The last name must be from 3 to 10 characters.", MinimumLength = 3)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         [Required]
         [Display(Name = "First Name")]
-        public string FName {get; set;}
+        public string FName { get; set; }
 
         [StringLength(10, ErrorMessage = "The last name must be from 3 to 10 characters.", MinimumLength = 3)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
@@ -27,8 +38,12 @@ namespace ModelLayer.ViewModels
         [RegularExpression(@"^[\w]+$", ErrorMessage = "Letters, numbers, and underscores only.")]
         [Required]
         [Display(Name = "Username")]
-        [Key]
-        public string UserName { set; get; }
+        //[Key]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Choose a default store location")] //they can change in EDIT login
+        public string Store { get; set; }
 
 
     }

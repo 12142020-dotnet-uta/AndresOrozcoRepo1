@@ -25,7 +25,8 @@ namespace BusinessLogicLayer
             {
                 FName = loginCustomerViewModel.FName,
                 LName = loginCustomerViewModel.LName,
-                UserName = loginCustomerViewModel.UserName
+                UserName = loginCustomerViewModel.UserName,
+                Store = loginCustomerViewModel.Store
             };
 
             Customer c1 = _repository.LoginCustomer(c);
