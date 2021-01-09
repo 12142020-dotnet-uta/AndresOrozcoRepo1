@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RepositoryLayer.Migrations
 {
-    public partial class initialMigration : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,9 +11,10 @@ namespace RepositoryLayer.Migrations
                 name: "customers",
                 columns: table => new
                 {
-                    UserName = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    UserName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    FName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    LName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    Store = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

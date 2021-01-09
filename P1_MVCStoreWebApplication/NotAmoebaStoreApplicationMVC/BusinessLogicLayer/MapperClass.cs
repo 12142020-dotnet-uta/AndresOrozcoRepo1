@@ -12,7 +12,7 @@ namespace BusinessLogicLayer
     {
         public CustomerViewModel ConvertCustomerToCustomerViewModel(Customer c)
         {
-            CustomerViewModel cViewModel = new CustomerViewModel(c.FName, c.LName, c.UserName);
+            CustomerViewModel cViewModel = new CustomerViewModel(c.FName, c.LName, c.UserName, c.Store);
             return cViewModel;
         }
     }

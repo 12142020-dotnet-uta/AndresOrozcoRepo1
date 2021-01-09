@@ -10,8 +10,8 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(StoreAppDBContext))]
-    [Migration("20210105230742_initialMigration")]
-    partial class initialMigration
+    [Migration("20210109041822_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,12 +24,21 @@ namespace RepositoryLayer.Migrations
             modelBuilder.Entity("ModelLayer.Customer", b =>
                 {
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("FName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("LName")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Store")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserName");

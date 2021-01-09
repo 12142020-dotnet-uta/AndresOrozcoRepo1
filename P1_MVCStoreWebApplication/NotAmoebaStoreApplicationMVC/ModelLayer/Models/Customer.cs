@@ -8,17 +8,18 @@ namespace ModelLayer
     public class Customer
     {
 
-        private string fName, lName, userName;
+        private string fName, lName, userName, store;
 
         public Customer()
         {
         }
 
-        public Customer(string fName, string lName, string userName)//, string userId)
+        public Customer(string fName, string lName, string userName, string store)//, string userId)
         {
             this.userName = userName;
             this.fName = fName;
             this.lName = lName;
+            this.store = store;
         }
         //Properties Below
         [StringLength(10, ErrorMessage = "The last name must be from 3 to 10 characters.", MinimumLength = 3)]
@@ -71,6 +72,14 @@ namespace ModelLayer
             set { this.userName = value; }
         }
 
+
+        [Display(Name = "Choose Your Store Location")]
+        [Required]
+        public string Store
+        {
+            get { return this.store; }
+            set { this.store = value; }
+        }
 
         //public static explicit operator bool(Customer v)
         //{

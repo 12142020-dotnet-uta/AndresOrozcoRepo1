@@ -28,7 +28,8 @@ namespace RepositoryLayer
                 {
                     FName = c.FName,
                     LName = c.LName,
-                    UserName = c.UserName
+                    UserName = c.UserName,
+                    Store = c.Store
                 };
                 customers.Add(customer1);// ass new player
                 _dbContext.SaveChanges();// save new player to Db
@@ -46,25 +47,5 @@ namespace RepositoryLayer
             }
             return customer1;
         }
-        //{
-        //    Customer c1 = customers.Where(x => x.UserName == c.UserName).FirstOrDefault();
-        //    Console.WriteLine(c1);
-        //    //if (c1 == null) // new player
-        //    //{
-        //    //    c1 = new Customer(c.FName, c.LName, c.UserName);
-        //    //    customers.Add(c1);
-        //    //    _dbContext.SaveChanges();
-        //    //}
-        //    //return c1;
-        //    if (c1 != null) //found player
-        //    {
-        //        return c1;
-        //    }
-        //    else
-        //    {
-        //        Customer c2 = new Customer("generated", "for", "you");
-        //        return c2;
-        //    }
-        //}
     }
 }
