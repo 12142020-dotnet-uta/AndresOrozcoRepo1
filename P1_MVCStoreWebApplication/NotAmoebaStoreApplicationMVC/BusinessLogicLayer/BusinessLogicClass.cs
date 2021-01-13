@@ -73,5 +73,16 @@ namespace BusinessLogicLayer
             return inventoryViewModelList;
         }
 
+        public List<ShopViewModel> StoreList()
+        {
+            List<Store> storeList = _repository.StoreList();
+            List<ShopViewModel> shopViewModelList = new List<ShopViewModel>();
+            foreach (Store s in storeList)
+            {
+                shopViewModelList.Add(_mapperClass.ConvertStoreToShopViewModel(s));
+            }
+            return shopViewModelList;
+        }
+
     }
 }

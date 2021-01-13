@@ -12,12 +12,14 @@ namespace RepositoryLayer
         private StoreAppDBContext _dbContext;
         DbSet<Customer> customers;
         DbSet<Inventory> inventory;
+        DbSet<Store> stores;
         public Repository(StoreAppDBContext dbContextClass)
-            {
-                _dbContext = dbContextClass;
-                this.customers = _dbContext.customers;
+        {
+            _dbContext = dbContextClass;
+            this.customers = _dbContext.customers;
             this.inventory = _dbContext.inventory;
-            }
+            this.stores = _dbContext.stores;  
+        }
 
         public Customer LoginCustomer(Customer c)
         {
@@ -58,6 +60,11 @@ namespace RepositoryLayer
         public List<Inventory> InventoryList()
         {
             return inventory.ToList();
+        }
+
+        public List<Store> StoreList()
+        {
+            return stores.ToList();
         }
     }
 }

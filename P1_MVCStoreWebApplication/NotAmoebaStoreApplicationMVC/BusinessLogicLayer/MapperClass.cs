@@ -24,5 +24,12 @@ namespace BusinessLogicLayer
             return iViewModel;
         }
 
+        public ShopViewModel ConvertStoreToShopViewModel(Store s)
+        {
+            if (s == null) return null;
+            ShopViewModel sViewModel = new ShopViewModel(s.StoreId, s.StoreName, s.Address);
+            return sViewModel;
+        }
+
     }
 }

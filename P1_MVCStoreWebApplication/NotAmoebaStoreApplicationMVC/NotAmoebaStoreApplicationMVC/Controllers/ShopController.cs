@@ -18,6 +18,13 @@ namespace NotAmoebaStoreApplicationMVC.Controllers
         }
         // GET: InventoryController
 
+        [ActionName("ShowStores")]
+        public ActionResult ShowStores()
+        {
+            List<ShopViewModel> storeViewModelList = _businessLogicClass.StoreList();
+            return View(storeViewModelList);
+        }
+
         [ActionName("ShowInventory")]
         public ActionResult Index()
         {
