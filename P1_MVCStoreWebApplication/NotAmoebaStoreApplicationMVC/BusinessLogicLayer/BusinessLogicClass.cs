@@ -18,6 +18,7 @@ namespace BusinessLogicLayer
             _repository = repository;
             _mapperClass = mapperClass;
         }
+
         public CustomerViewModel LoginCustomer(LoginCustomerViewModel loginCustomerViewModel)
         {
 
@@ -33,7 +34,32 @@ namespace BusinessLogicLayer
 
             CustomerViewModel customerViewModel = _mapperClass.ConvertCustomerToCustomerViewModel(c1);
             return customerViewModel;
+        }
 
+        public CustomerViewModel RegisterCustomer(LoginCustomerViewModel viewModel)
+        {
+            Customer c = new Customer()
+            {
+                FName = viewModel.FName,
+                LName = viewModel.LName,
+                UserName = viewModel.UserName,
+                Store = viewModel.Store
+            };
+            Customer c1 = _repository.RegisterCustomer(c);
+
+            CustomerViewModel customerViewModel = _mapperClass.ConvertCustomerToCustomerViewModel(c1);
+            return customerViewModel;
+        }
+
+        public List<CustomerViewModel> CustomerList()
+        {
+            List<Customer> customerList = _repository.CustomerList();
+            List<CustomerViewModel> customerViewModelList = new List<CustomerViewModel>();
+            foreach(Customer c in customerList)
+            {
+                customerViewModelList.Add(_mapperClass.ConvertCustomerToCustomerViewModel(c));
+            }
+            return customerViewModelList;
         }
     }
 }
