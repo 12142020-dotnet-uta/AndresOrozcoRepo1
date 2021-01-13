@@ -7,7 +7,7 @@
 <h1>ShowInventory</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <!--<a asp-action="Create">Create New</a>-->
 </p>
 <table class="table">
     <thead>
@@ -29,11 +29,12 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.StoreName)
+                     @Html.DisplayFor(modelItem => item.StoreName)
+                   
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
+                    <a asp-controller="Shop" asp-action="Quantity"> @Html.DisplayFor(modelItem => item.ProductName)</a>
+</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Quantity)
                 </td>
