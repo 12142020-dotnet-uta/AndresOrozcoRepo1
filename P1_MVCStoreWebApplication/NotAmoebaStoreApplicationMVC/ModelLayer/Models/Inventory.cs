@@ -17,6 +17,12 @@ namespace ModelLayer
             this.productName = productName;
             this.quantity = quantity;
         }
+        public Inventory(int storeId, string productName, int quantity)
+        {
+            this.storeId = storeId;
+            this.productName = productName;
+            this.quantity = quantity;
+        }
 
         public Guid InventoryId
         {

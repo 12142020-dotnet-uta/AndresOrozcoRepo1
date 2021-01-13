@@ -18,34 +18,39 @@ namespace RepositoryLayer
             }
 
         public Customer LoginCustomer(Customer c)
-
         {
             Customer customer1 = customers.FirstOrDefault(x => x.UserName == c.UserName);// check if the player is in the Db
 
             if (customer1 == null)// create new player if none exists
             {
-                customer1 = new Customer()
+                return null;
+            }
+            return customer1;
+        }
+        public Customer RegisterCustomer(Customer c)
+        {
+            Customer customer1 = customers.FirstOrDefault(x => x.UserName == c.UserName);// check if the player is in the Db
+            if (customer1 == null) //does not exist yet
+            {
+                Customer c1 = new Customer()
                 {
                     FName = c.FName,
                     LName = c.LName,
                     UserName = c.UserName,
                     Store = c.Store
                 };
-                customers.Add(customer1);// ass new player
-                _dbContext.SaveChanges();// save new player to Db
-
-                try
-                {
-                    Customer customer2 = customers.FirstOrDefault(x => x.UserName == customer1.UserName);// check if the player is in the Db
-                    return customer2;
-                }
-                catch (ArgumentNullException ex)
-                {
-                    Console.WriteLine("Saving player to DB threw an error" , ex);
-                    //_logger.LogInformation($"Saving a player to the Db threw an error, {ex}");
-                }
+                customers.Add(c1);
+                _dbContext.SaveChanges();
+                return c1;
             }
-            return customer1;
+            else //exists! cannot register
+            {
+                return null;
+            }
+        }
+        public List<Customer> CustomerList()
+        {
+            return customers.ToList();
         }
     }
 }

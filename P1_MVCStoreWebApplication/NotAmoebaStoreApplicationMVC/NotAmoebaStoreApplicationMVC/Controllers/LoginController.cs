@@ -40,17 +40,35 @@ namespace NotAmoebaStoreApplicationMVC.Controllers
             //return View("DisplayCustomerDetails");//, c);
 
             CustomerViewModel customerViewModel = _businessLogicClass.LoginCustomer(loginCustomerViewModel);
-            return View("DisplayCustomerDetails", customerViewModel);
-            //if (customerViewModel != null)
-            //{
-            //    return View("DisplayCustomerDetails", customerViewModel);
-            //}
-            //else
-            //{
-            //    return View("Register");
-            //}
-
+            //return View("DisplayCustomerDetails", customerViewModel);
+            if (customerViewModel != null)
+            {
+                return View("DisplayCustomerDetails", customerViewModel);
+            }
+            else
+            {
+                ModelState.AddModelError("Failure", "Did not find that username. Redirected you to register");
+                //System.Threading.Thread.Sleep(2000);
+                return View("../Register/Register");
+                //return View("Register");
+            }
         }
-        
+
+        [ActionName("Register")]
+        public IActionResult Register(LoginCustomerViewModel loginCustomerViewModel)
+        {
+            if (loginCustomerViewModel.UserName == null)
+            {
+                return View();
+            }
+
+            CustomerViewModel customerViewModel = _businessLogicClass.RegisterCustomer(loginCustomerViewModel);
+            return View("DisplayCustomerDetails", customerViewModel);
+        }
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
+
     }
 }
