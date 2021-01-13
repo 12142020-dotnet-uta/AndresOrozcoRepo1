@@ -61,5 +61,17 @@ namespace BusinessLogicLayer
             }
             return customerViewModelList;
         }
+
+        public List<InventoryViewModel> InventoryList()
+        {
+            List<Inventory> inventoryList = _repository.InventoryList();
+            List<InventoryViewModel> inventoryViewModelList = new List<InventoryViewModel>();
+            foreach (Inventory i in inventoryList)
+            {
+                inventoryViewModelList.Add(_mapperClass.ConvertInventoryToInventoryModel(i));
+            }
+            return inventoryViewModelList;
+        }
+
     }
 }
