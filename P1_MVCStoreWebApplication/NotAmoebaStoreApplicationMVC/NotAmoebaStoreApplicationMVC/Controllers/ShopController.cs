@@ -31,6 +31,13 @@ namespace NotAmoebaStoreApplicationMVC.Controllers
             return View("Quantity");
         }
 
+        [ActionName("DeduceQuantity")]
+        public ActionResult DeduceQuantity(int quantity)
+        {
+            return View("DeduceQuantity" ,quantity);
+
+        }
+
         // GET: InventoryController/Details/5
         public ActionResult Details(int id)
         {

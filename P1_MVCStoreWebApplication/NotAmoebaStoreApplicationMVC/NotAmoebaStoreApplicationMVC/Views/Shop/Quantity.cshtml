@@ -10,32 +10,54 @@
     <h4>InventoryViewModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.StoreName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StoreName)
+        <dd class="col-sm-10">
+            Berkeley: NotAmoeba
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ProductName)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductName)
+        <dd class="col-sm-10">
+            Songs For The General Public
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
+            Product Description
+        </dt>
+        <dd class="col-sm-10">
+            The Lemon Twigs's latest album.
+        </dd>
+
+        <dt class="col-sm-2">
+            Price
+        </dt>
+        <dd class="col-sm-10">
+            $19.99
+        </dd>
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Quantity)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Quantity)
             <br />
-            
-            <asp:DropDownList id="Quantity"
-                              AutoPostBack="True"
-                              OnSelectedIndexChanged="Selection_Change">
-                @for (int i = 0; i < 50; i++)
+            <asp:dropdownlist runat="server" id="ddlTest">
+                @for (int i = 1; i < 26; i++)
                 {
-                <asp:ListItem Value=@i>@i </asp:ListItem>}
-            </asp:DropDownList>
+                    <form >
+                        <asp:listitem text="@i" value="@i">
+
+                            <a asp-controller="Shop" asp-action="DeduceAmount">@i</a>
+                        </asp:listitem>
+                    </form>
+
+                }
+                @*<asp:listitem text="Black" value="2"></asp:listitem>
+        <asp:listitem text="Blue" value="3"></asp:listitem>
+        <asp:listitem text="Green" value="4"></asp:listitem>
+        <asp:listitem text="Yellow" value="5"></asp:listitem>*@
+            </asp:dropdownlist>
         </dd>
     </dl>
 </div>

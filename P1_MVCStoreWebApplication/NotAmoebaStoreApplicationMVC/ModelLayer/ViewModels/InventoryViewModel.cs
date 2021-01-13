@@ -27,6 +27,7 @@ namespace ModelLayer.ViewModels
             this.ProductName = productName;
             this.Quantity = quantity;
         }
+
         [Display(Name="Store")]
         public string StoreName
         {
@@ -37,6 +38,7 @@ namespace ModelLayer.ViewModels
         {
             get;set;
         }
+
 
         [Display(Name = "Quantity")]
         public int Quantity
