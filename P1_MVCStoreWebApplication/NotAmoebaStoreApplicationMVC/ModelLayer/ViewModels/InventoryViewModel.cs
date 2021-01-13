@@ -21,9 +21,21 @@ namespace ModelLayer.ViewModels
         }
         public InventoryViewModel(int storeId, string productName, int quantity)
         {
-            this.storeId = storeId;
-            this.productName = productName;
-            this.quantity = quantity;
+            this.StoreId = storeId;
+            this.ProductName = productName;
+            this.Quantity = quantity;
+        }
+        public int StoreId
+        {
+            get;set;
+        }
+        public string ProductName
+        {
+            get;set;
+        }
+        public int Quantity
+        {
+            get;set;
         }
     }
 }
